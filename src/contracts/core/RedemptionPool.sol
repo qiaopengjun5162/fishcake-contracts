@@ -8,7 +8,6 @@ import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "../interfaces/IRedemptionPool.sol";
 import "./token/FishCakeCoin.sol";
 
-
 contract RedemptionPool is ReentrancyGuard, IRedemptionPool {
     using SafeERC20 for IERC20;
 
@@ -19,11 +18,7 @@ contract RedemptionPool is ReentrancyGuard, IRedemptionPool {
     error USDTAmountIsZero();
     error NotEnoughUSDT();
 
-    event ClaimSuccess(
-        address indexed user,
-        uint256 tokenUsdtAmount,
-        uint256 fishcakeCoinAmount
-    );
+    event ClaimSuccess(address indexed user, uint256 tokenUsdtAmount, uint256 fishcakeCoinAmount);
 
     constructor(address _fishcakeCoin, address _usdtToken) {
         fishcakeCoin = IERC20(_fishcakeCoin);
@@ -33,7 +28,7 @@ contract RedemptionPool is ReentrancyGuard, IRedemptionPool {
     function claim(uint256 _amount) external {
         require(block.timestamp > unlockTime, "RedemptionPool claim: redemption is locked");
         require(fishcakeCoin.balanceOf(msg.sender) >= _amount, "RedemptionPool claim: fcc balance is not enough");
-        uint usdtAmount = calculateUsdt(_amount);
+        uint256 usdtAmount = calculateUsdt(_amount);
         if (usdtAmount == 0) {
             revert USDTAmountIsZero();
         }
@@ -50,7 +45,7 @@ contract RedemptionPool is ReentrancyGuard, IRedemptionPool {
         return usdtToken.balanceOf(address(this));
     }
 
-    function calculateUsdt(uint256 _amount) internal view returns (uint256){
-        return usdtToken.balanceOf(address(this)) * _amount / fishcakeCoin.totalSupply();
+    function calculateUsdt(uint256 _amount) internal view returns (uint256) {
+        return (usdtToken.balanceOf(address(this)) * _amount) / fishcakeCoin.totalSupply();
     }
 }

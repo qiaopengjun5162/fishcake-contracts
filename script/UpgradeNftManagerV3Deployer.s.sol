@@ -15,7 +15,7 @@ contract UpgradeNftManagerV3Deployer is Script {
     address public constant PROXY_NFT_MANAGER = address(0x2F2Cb24BaB1b6E2353EF6246a2Ea4ce50487008B);
 
     // local
-//    address public constant PROXY_NFT_MANAGER = address(0x2a264F26859166C5BF3868A54593eE716AeBC848);
+    //    address public constant PROXY_NFT_MANAGER = address(0x2a264F26859166C5BF3868A54593eE716AeBC848);
 
     function run() public {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
@@ -29,11 +29,7 @@ contract UpgradeNftManagerV3Deployer is Script {
 
         console.log("Upgrading NftManager proxy...");
         console.log("upgraded before:", Upgrades.getImplementationAddress(PROXY_NFT_MANAGER));
-        Upgrades.upgradeProxy(
-            PROXY_NFT_MANAGER,
-            "NftManagerV3.sol:NftManagerV3",
-            ""
-        );
+        Upgrades.upgradeProxy(PROXY_NFT_MANAGER, "NftManagerV3.sol:NftManagerV3", "");
         vm.stopBroadcast();
         console.log("upgraded after:", Upgrades.getImplementationAddress(PROXY_NFT_MANAGER));
         console.log("Proxy Admin:", Upgrades.getAdminAddress(PROXY_NFT_MANAGER));
@@ -59,7 +55,5 @@ contract UpgradeNftManagerV3Deployer is Script {
 
         console.log("New name:", upgradedNftManager.name());
         console.log("New symbol:", upgradedNftManager.symbol());
-
-
     }
 }

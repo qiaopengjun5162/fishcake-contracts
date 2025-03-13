@@ -8,7 +8,6 @@ import {FishCakeCoin} from "@contracts/core/token/FishCakeCoin.sol";
 import {FishCakeCoinStorage} from "@contracts/core/token/FishCakeCoinStorage.sol";
 
 contract FishCakeCoinTest is FishcakeTestHelperTest {
-
     function setUp() public virtual override {
         super.setUp();
     }
@@ -27,10 +26,15 @@ contract FishCakeCoinTest is FishcakeTestHelperTest {
 
         uint256 after_burn_totalSupply = tempFishCakeCoin.totalSupply();
         console.log("FishCakeCoin test_PoolAllocate totalSupply:", tempFishCakeCoin.totalSupply());
-        assertTrue(before_burn_totalSupply - 1000 == after_burn_totalSupply, "before_burn_totalSupply - 1000 == after_burn_totalSupply");
+        assertTrue(
+            before_burn_totalSupply - 1000 == after_burn_totalSupply,
+            "before_burn_totalSupply - 1000 == after_burn_totalSupply"
+        );
 
         uint256 after_burn_balance = tempFishCakeCoin.FccBalance(address(proxyDirectSalePool));
-        assertTrue((before_burn_balance - 1000) == after_burn_balance, "(before_burn_balance - 1000) == after_burn_balance");
+        assertTrue(
+            (before_burn_balance - 1000) == after_burn_balance, "(before_burn_balance - 1000) == after_burn_balance"
+        );
         console.log("FishCakeCoin test_PoolAllocate after_burn_balance:", after_burn_balance);
     }
 
@@ -62,5 +66,4 @@ contract FishCakeCoinTest is FishcakeTestHelperTest {
         tempFishCakeCoin.poolAllocate();
         vm.stopBroadcast();
     }
-
 }

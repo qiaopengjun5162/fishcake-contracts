@@ -27,3 +27,10 @@ solc_version = "0.8.26"
 
 [etherscan]
 polygon = { key = "${API_KEY}" }
+holesky = { key = "${HOLESKY_ETHERSCAN_API_KEY}" }  # 需注册 Holesky 专用 API 密钥
+sepolia = { key = "${ETHERSCAN_API_KEY}" }
+
+[rpc_endpoints]
+holesky = "${HOLESKY_RPC_URL}"  
+sepolia = "${SEPOLIA_RPC_URL}"
+local = "${LOCAL_RPC_URL}"  

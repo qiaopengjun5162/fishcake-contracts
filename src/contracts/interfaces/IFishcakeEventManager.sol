@@ -23,17 +23,10 @@ interface IFishcakeEventManager {
     );
 
     event ActivityFinish(
-        uint256 indexed _activityId,
-        address _tokenContractAddr,
-        uint256 _returnAmount,
-        uint256 _minedAmount
+        uint256 indexed _activityId, address _tokenContractAddr, uint256 _returnAmount, uint256 _minedAmount
     );
 
-    event Drop(
-        address indexed who,
-        uint256 indexed _activityId,
-        uint256 _dropAmt
-    );
+    event Drop(address indexed who, uint256 indexed _activityId, uint256 _dropAmt);
 
     event SetValidTime(address indexed who, uint256 _time);
 

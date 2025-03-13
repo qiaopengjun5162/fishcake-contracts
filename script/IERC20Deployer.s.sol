@@ -10,14 +10,13 @@ contract FccUsdtERC20 is ERC20 {
     constructor(string memory name, string memory symbol, uint256 initialSupply, address owner) ERC20(name, symbol) {
         _mint(owner, initialSupply);
     }
-    
+
     function decimals() public view virtual override returns (uint8) {
         return 6;
     }
 }
 
 contract IERC20Deployer is Script {
-
     function run() public {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
         address deployerAddress = vm.addr(deployerPrivateKey);

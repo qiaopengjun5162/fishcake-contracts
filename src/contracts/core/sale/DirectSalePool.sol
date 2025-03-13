@@ -9,22 +9,29 @@ import "@openzeppelin-upgrades/contracts/utils/ReentrancyGuardUpgradeable.sol";
 
 import "./DirectSalePoolStorage.sol";
 
-
-contract DirectSalePool is Initializable, ERC20Upgradeable, ERC20BurnableUpgradeable, OwnableUpgradeable, ReentrancyGuardUpgradeable, DirectSalePoolStorage {
+contract DirectSalePool is
+    Initializable,
+    ERC20Upgradeable,
+    ERC20BurnableUpgradeable,
+    OwnableUpgradeable,
+    ReentrancyGuardUpgradeable,
+    DirectSalePoolStorage
+{
     error TokenUsdtBalanceNotEnough();
     error FishcakeTokenNotEnough();
 
-    event BuyFishcakeCoin(
-        address indexed buyer,
-        uint256 payUsdtAmount,
-        uint256 fccAmount
-    );
+    event BuyFishcakeCoin(address indexed buyer, uint256 payUsdtAmount, uint256 fccAmount);
 
-//    constructor(address _fishCakeCoin, address _redemptionPool, address _tokenUsdtAddress) DirectSalePoolStorage(_fishCakeCoin, _redemptionPool, _tokenUsdtAddress) {
-//        _disableInitializers();
-//    }
+    //    constructor(address _fishCakeCoin, address _redemptionPool, address _tokenUsdtAddress) DirectSalePoolStorage(_fishCakeCoin, _redemptionPool, _tokenUsdtAddress) {
+    //        _disableInitializers();
+    //    }
 
-    function initialize(address _initialOwner, address _fishCakeCoin, address _redemptionPool, address _tokenUsdtAddress) public initializer {
+    function initialize(
+        address _initialOwner,
+        address _fishCakeCoin,
+        address _redemptionPool,
+        address _tokenUsdtAddress
+    ) public initializer {
         require(_initialOwner != address(0), "DirectSalePool initialize: _initialOwner can't be zero address");
         __Ownable_init(_initialOwner);
         _transferOwnership(_initialOwner);
@@ -33,7 +40,9 @@ contract DirectSalePool is Initializable, ERC20Upgradeable, ERC20BurnableUpgrade
     }
 
     function buyFccAmount(uint256 fccAmount) external {
-        require(fishCakeCoin.balanceOf(address(this)) >= fccAmount, "DirectSalePool buyFccAmount: fcc token is not enough");
+        require(
+            fishCakeCoin.balanceOf(address(this)) >= fccAmount, "DirectSalePool buyFccAmount: fcc token is not enough"
+        );
         uint256 payUsdtAmount = fccAmount / 10;
         if (tokenUsdtAddress.balanceOf(msg.sender) < payUsdtAmount) {
             revert TokenUsdtBalanceNotEnough();
@@ -47,12 +56,14 @@ contract DirectSalePool is Initializable, ERC20Upgradeable, ERC20BurnableUpgrade
         fishCakeCoin.transfer(msg.sender, fccAmount);
 
         emit BuyFishcakeCoin(msg.sender, payUsdtAmount, fccAmount);
-
     }
 
     function buyFccByUsdtAmount(uint256 tokenUsdtAmount) external {
-        require(tokenUsdtAddress.balanceOf(msg.sender) >= tokenUsdtAmount, "DirectSalePool buyFccAmount: usdt token is not enough");
-        uint256 sellFccAmount = tokenUsdtAmount * 10;  // 1 USDT = 10 FCC
+        require(
+            tokenUsdtAddress.balanceOf(msg.sender) >= tokenUsdtAmount,
+            "DirectSalePool buyFccAmount: usdt token is not enough"
+        );
+        uint256 sellFccAmount = tokenUsdtAmount * 10; // 1 USDT = 10 FCC
         if (sellFccAmount > fishCakeCoin.balanceOf(address(this))) {
             revert FishcakeTokenNotEnough();
         }

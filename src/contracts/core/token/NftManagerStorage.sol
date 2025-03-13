@@ -41,7 +41,10 @@ abstract contract NftManagerStorage is Initializable, INftManager {
     string public _customName;
     string public _customSymbol;
 
-    function __NftManagerStorage_init(address _fccTokenAddr, address _tokenUsdtAddr, address _redemptionPoolAddress) internal initializer {
+    function __NftManagerStorage_init(address _fccTokenAddr, address _tokenUsdtAddr, address _redemptionPoolAddress)
+        internal
+        initializer
+    {
         fccTokenAddr = IERC20(_fccTokenAddr);
         tokenUsdtAddr = IERC20(_tokenUsdtAddr);
         redemptionPoolAddress = IRedemptionPool(_redemptionPoolAddress);

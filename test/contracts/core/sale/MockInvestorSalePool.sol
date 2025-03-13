@@ -7,9 +7,9 @@ import {console} from "forge-std/console.sol";
 import {InvestorSalePool} from "@contracts/core/sale/InvestorSalePool.sol";
 
 contract MockInvestorSalePool is InvestorSalePool {
-//    constructor() InvestorSalePool(address(1), address(2), address(3)) {
-//        // Mock implementation or leave empty
-//    }
+    //    constructor() InvestorSalePool(address(1), address(2), address(3)) {
+    //        // Mock implementation or leave empty
+    //    }
 
     function getUsdtDecimal_mock() public view returns (uint256) {
         return usdtDecimal;

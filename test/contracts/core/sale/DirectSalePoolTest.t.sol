@@ -8,7 +8,6 @@ import {IDirectSalePool} from "@contracts/interfaces/IDirectSalePool.sol";
 import {FishcakeTestHelperTest} from "../../FishcakeTestHelper.t.sol";
 
 contract DirectSalePoolTest is FishcakeTestHelperTest {
-
     function setUp() public virtual override {
         super.setUp();
     }
@@ -20,9 +19,13 @@ contract DirectSalePoolTest is FishcakeTestHelperTest {
         IDirectSalePool tempDirectSalePool = IDirectSalePool(address(proxyDirectSalePool));
 
         uint256 before_tempDirectSalePool_fcc = tempFishCakeCoin.FccBalance(address(tempDirectSalePool));
-        console.log("DirectSalePoolTest test_buyFccAmount before_tempDirectSalePool_fcc:", before_tempDirectSalePool_fcc);
+        console.log(
+            "DirectSalePoolTest test_buyFccAmount before_tempDirectSalePool_fcc:", before_tempDirectSalePool_fcc
+        );
         uint256 before_tempDirectSalePool_usdt = usdtToken.balanceOf(address(tempDirectSalePool));
-        console.log("DirectSalePoolTest test_buyFccAmount before_tempDirectSalePool_usdt:", before_tempDirectSalePool_usdt);
+        console.log(
+            "DirectSalePoolTest test_buyFccAmount before_tempDirectSalePool_usdt:", before_tempDirectSalePool_usdt
+        );
 
         uint256 before_redemptionPool_fcc = tempFishCakeCoin.FccBalance(address(redemptionPool));
         console.log("DirectSalePoolTest test_buyFccAmount before_redemptionPool_fcc:", before_redemptionPool_fcc);
@@ -43,10 +46,15 @@ contract DirectSalePoolTest is FishcakeTestHelperTest {
 
         uint256 after_tempDirectSalePool_fcc = tempFishCakeCoin.FccBalance(address(tempDirectSalePool));
         console.log("DirectSalePoolTest test_buyFccAmount after_tempDirectSalePool_fcc:", after_tempDirectSalePool_fcc);
-        assertTrue((before_tempDirectSalePool_fcc - fcc_amount) == after_tempDirectSalePool_fcc, "before_tempDirectSalePool_fcc - fcc_amount == after_tempDirectSalePool_fcc");
+        assertTrue(
+            (before_tempDirectSalePool_fcc - fcc_amount) == after_tempDirectSalePool_fcc,
+            "before_tempDirectSalePool_fcc - fcc_amount == after_tempDirectSalePool_fcc"
+        );
 
         uint256 after_tempDirectSalePool_usdt = usdtToken.balanceOf(address(tempDirectSalePool));
-        console.log("DirectSalePoolTest test_buyFccAmount after_tempDirectSalePool_usdt:", after_tempDirectSalePool_usdt);
+        console.log(
+            "DirectSalePoolTest test_buyFccAmount after_tempDirectSalePool_usdt:", after_tempDirectSalePool_usdt
+        );
         assertTrue(after_tempDirectSalePool_usdt == 0, "after_tempDirectSalePool_usdt == 0");
 
         uint256 after_redemptionPool_fcc = tempFishCakeCoin.FccBalance(address(redemptionPool));
@@ -55,7 +63,9 @@ contract DirectSalePoolTest is FishcakeTestHelperTest {
 
         uint256 after_redemptionPool_usdt = usdtToken.balanceOf(address(redemptionPool));
         console.log("DirectSalePoolTest test_buyFccAmount after_redemptionPool_usdt:", after_redemptionPool_usdt);
-        assertTrue(after_redemptionPool_usdt == (fcc_amount / 10), "buyFccAmount after_redemptionPool_usdt = fcc_amount / 10");
+        assertTrue(
+            after_redemptionPool_usdt == (fcc_amount / 10), "buyFccAmount after_redemptionPool_usdt = fcc_amount / 10"
+        );
 
         uint256 after_deployerAddress_fcc = tempFishCakeCoin.FccBalance(address(deployerAddress));
         console.log("DirectSalePoolTest test_buyFccAmount after_deployerAddress_fcc:", after_deployerAddress_fcc);
@@ -63,9 +73,11 @@ contract DirectSalePoolTest is FishcakeTestHelperTest {
 
         uint256 after_deployerAddress_usdt = usdtToken.balanceOf(address(deployerAddress));
         console.log("DirectSalePoolTest test_buyFccAmount after_deployerAddress_usdt:", after_deployerAddress_usdt);
-        assertTrue((before_deployerAddress_usdt - after_redemptionPool_usdt) == after_deployerAddress_usdt, "(before_deployerAddress_usdt - after_redemptionPool_usdt) == after_deployerAddress_usdt");
+        assertTrue(
+            (before_deployerAddress_usdt - after_redemptionPool_usdt) == after_deployerAddress_usdt,
+            "(before_deployerAddress_usdt - after_redemptionPool_usdt) == after_deployerAddress_usdt"
+        );
     }
-
 
     function test_buyFccByUsdtAmount() public {
         super.test_FishCakeCoin_PoolAllocate();
@@ -74,10 +86,14 @@ contract DirectSalePoolTest is FishcakeTestHelperTest {
         IDirectSalePool tempDirectSalePool = IDirectSalePool(address(proxyDirectSalePool));
 
         uint256 before_tempDirectSalePool_fcc = tempFishCakeCoin.FccBalance(address(tempDirectSalePool));
-        console.log("DirectSalePoolTest test_buyFccByUsdtAmount before_tempDirectSalePool_fcc:", before_tempDirectSalePool_fcc);
+        console.log(
+            "DirectSalePoolTest test_buyFccByUsdtAmount before_tempDirectSalePool_fcc:", before_tempDirectSalePool_fcc
+        );
 
         uint256 before_tempDirectSalePool_usdt = usdtToken.balanceOf(address(tempDirectSalePool));
-        console.log("DirectSalePoolTest test_buyFccByUsdtAmount before_tempDirectSalePool_usdt:", before_tempDirectSalePool_usdt);
+        console.log(
+            "DirectSalePoolTest test_buyFccByUsdtAmount before_tempDirectSalePool_usdt:", before_tempDirectSalePool_usdt
+        );
 
         uint256 before_redemptionPool_fcc = tempFishCakeCoin.FccBalance(address(redemptionPool));
         console.log("DirectSalePoolTest test_buyFccByUsdtAmount before_redemptionPool_fcc:", before_redemptionPool_fcc);
@@ -85,9 +101,13 @@ contract DirectSalePoolTest is FishcakeTestHelperTest {
         console.log("DirectSalePoolTest test_buyFccByUsdtAmount before_redemptionPool_usdt:", before_redemptionPool_fcc);
 
         uint256 before_deployerAddress_fcc = tempFishCakeCoin.FccBalance(address(deployerAddress));
-        console.log("DirectSalePoolTest test_buyFccByUsdtAmount before_deployerAddress_fcc:", before_deployerAddress_fcc);
+        console.log(
+            "DirectSalePoolTest test_buyFccByUsdtAmount before_deployerAddress_fcc:", before_deployerAddress_fcc
+        );
         uint256 before_deployerAddress_usdt = usdtToken.balanceOf(deployerAddress);
-        console.log("DirectSalePoolTest test_buyFccByUsdtAmount before_deployerAddress_usdt:", before_deployerAddress_usdt);
+        console.log(
+            "DirectSalePoolTest test_buyFccByUsdtAmount before_deployerAddress_usdt:", before_deployerAddress_usdt
+        );
 
         uint256 usdt_amount = 10000;
 
@@ -97,11 +117,18 @@ contract DirectSalePoolTest is FishcakeTestHelperTest {
         vm.stopBroadcast();
 
         uint256 after_tempDirectSalePool_fcc = tempFishCakeCoin.FccBalance(address(tempDirectSalePool));
-        console.log("DirectSalePoolTest test_buyFccByUsdtAmount after_tempDirectSalePool_fcc:", after_tempDirectSalePool_fcc);
-        assertTrue(after_tempDirectSalePool_fcc == (before_tempDirectSalePool_fcc - (usdt_amount * 10)), "buyFccAmount after_tempDirectSalePool_fcc == (before_tempDirectSalePool_fcc - (usdt_amount * 10))");
+        console.log(
+            "DirectSalePoolTest test_buyFccByUsdtAmount after_tempDirectSalePool_fcc:", after_tempDirectSalePool_fcc
+        );
+        assertTrue(
+            after_tempDirectSalePool_fcc == (before_tempDirectSalePool_fcc - (usdt_amount * 10)),
+            "buyFccAmount after_tempDirectSalePool_fcc == (before_tempDirectSalePool_fcc - (usdt_amount * 10))"
+        );
 
         uint256 after_tempDirectSalePool_usdt = usdtToken.balanceOf(address(tempDirectSalePool));
-        console.log("DirectSalePoolTest test_buyFccByUsdtAmount after_tempDirectSalePool_usdt:", after_tempDirectSalePool_usdt);
+        console.log(
+            "DirectSalePoolTest test_buyFccByUsdtAmount after_tempDirectSalePool_usdt:", after_tempDirectSalePool_usdt
+        );
         assertTrue(after_tempDirectSalePool_usdt == 0, "buyFccAmount after_tempDirectSalePool_usdt is 0");
 
         uint256 after_redemptionPool_fcc = tempFishCakeCoin.FccBalance(address(redemptionPool));
@@ -114,13 +141,18 @@ contract DirectSalePoolTest is FishcakeTestHelperTest {
 
         uint256 after_deployerAddress_fcc = tempFishCakeCoin.FccBalance(address(deployerAddress));
         console.log("DirectSalePoolTest test_buyFccByUsdtAmount after_deployerAddress_fcc:", after_deployerAddress_fcc);
-        assertTrue(after_deployerAddress_fcc == (usdt_amount * 10), "buyFccAmount after_deployerAddress_fcc = (usdt_amount * 10)");
+        assertTrue(
+            after_deployerAddress_fcc == (usdt_amount * 10),
+            "buyFccAmount after_deployerAddress_fcc = (usdt_amount * 10)"
+        );
 
         uint256 after_deployerAddress_usdt = usdtToken.balanceOf(address(deployerAddress));
-        console.log("DirectSalePoolTest test_buyFccByUsdtAmount after_deployerAddress_usdt:", after_deployerAddress_usdt);
-        assertTrue((before_deployerAddress_usdt - usdt_amount) == after_deployerAddress_usdt, "(before_deployerAddress_usdt - usdt_amount) == after_deployerAddress_usdt");
-
+        console.log(
+            "DirectSalePoolTest test_buyFccByUsdtAmount after_deployerAddress_usdt:", after_deployerAddress_usdt
+        );
+        assertTrue(
+            (before_deployerAddress_usdt - usdt_amount) == after_deployerAddress_usdt,
+            "(before_deployerAddress_usdt - usdt_amount) == after_deployerAddress_usdt"
+        );
     }
-
-
 }

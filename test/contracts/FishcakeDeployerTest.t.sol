@@ -17,9 +17,8 @@ import {FishcakeEventManager} from "@contracts/core/FishcakeEventManager.sol";
 import {UsdtERC20TestHelper} from "./UsdtERC20TestHelper.sol";
 
 contract FishcakeDeployerTest is Test {
-
     address internal constant deployerAddress = address(0xa0Ee7A142d267C1f36714E4a8F75612F20a79720);
-//    local deploy erc20 token
+    //    local deploy erc20 token
     UsdtERC20TestHelper public usdtToken;
     address public usdtTokenAddress;
 
@@ -27,7 +26,7 @@ contract FishcakeDeployerTest is Test {
 
     // ========= can upgrade ===========
     FishCakeCoin public fishCakeCoin;
-    address  public proxyFishCakeCoin;
+    address public proxyFishCakeCoin;
     DirectSalePool public directSalePool;
     address public proxyDirectSalePool;
     InvestorSalePool public investorSalePool;
@@ -70,7 +69,9 @@ contract FishcakeDeployerTest is Test {
         proxyDirectSalePool = Upgrades.deployTransparentProxy(
             "DirectSalePool.sol:DirectSalePool",
             deployerAddress,
-            abi.encodeWithSelector(DirectSalePool.initialize.selector, deployerAddress, proxyFishCakeCoin, redemptionPool, usdtTokenAddress)
+            abi.encodeWithSelector(
+                DirectSalePool.initialize.selector, deployerAddress, proxyFishCakeCoin, redemptionPool, usdtTokenAddress
+            )
         );
         console.log("deploy directSalePool:", address(directSalePool));
         console.log("deploy proxyDirectSalePool:", address(proxyDirectSalePool));
@@ -79,41 +80,90 @@ contract FishcakeDeployerTest is Test {
         proxyInvestorSalePool = Upgrades.deployTransparentProxy(
             "InvestorSalePool.sol:InvestorSalePool",
             deployerAddress,
-            abi.encodeWithSelector(InvestorSalePool.initialize.selector, deployerAddress, proxyFishCakeCoin, redemptionPool, usdtTokenAddress)
+            abi.encodeWithSelector(
+                InvestorSalePool.initialize.selector,
+                deployerAddress,
+                proxyFishCakeCoin,
+                redemptionPool,
+                usdtTokenAddress
+            )
         );
         console.log("deploy investorSalePool:", address(investorSalePool));
         console.log("deploy proxyInvestorSalePool:", address(proxyInvestorSalePool));
-        console.log("deploy InvestorSalePool fishCakeCoin :", address(InvestorSalePool(address(proxyInvestorSalePool)).fishCakeCoin()));
-        console.log("deploy InvestorSalePool redemptionPool :", address(InvestorSalePool(address(proxyInvestorSalePool)).redemptionPool()));
-        console.log("deploy InvestorSalePool tokenUsdtAddress :", address(InvestorSalePool((address(proxyInvestorSalePool))).tokenUsdtAddress()));
+        console.log(
+            "deploy InvestorSalePool fishCakeCoin :",
+            address(InvestorSalePool(address(proxyInvestorSalePool)).fishCakeCoin())
+        );
+        console.log(
+            "deploy InvestorSalePool redemptionPool :",
+            address(InvestorSalePool(address(proxyInvestorSalePool)).redemptionPool())
+        );
+        console.log(
+            "deploy InvestorSalePool tokenUsdtAddress :",
+            address(InvestorSalePool((address(proxyInvestorSalePool))).tokenUsdtAddress())
+        );
 
         nftManager = new NftManager();
         proxyNftManager = Upgrades.deployTransparentProxy(
             "NftManager.sol:NftManager",
             deployerAddress,
-            abi.encodeWithSelector(NftManager.initialize.selector, deployerAddress, proxyFishCakeCoin, usdtTokenAddress, redemptionPool)
+            abi.encodeWithSelector(
+                NftManager.initialize.selector, deployerAddress, proxyFishCakeCoin, usdtTokenAddress, redemptionPool
+            )
         );
         console.log("deploy nftManager:", address(nftManager));
         console.log("deploy proxyNftManager:", address(proxyNftManager));
-        console.log("deploy proxyNftManager fccTokenAddr :", address(NftManager(payable(address(proxyNftManager))).fccTokenAddr()));
-        console.log("deploy proxyNftManager tokenUsdtAddr :", address(NftManager(payable(address(proxyNftManager))).tokenUsdtAddr()));
-        console.log("deploy proxyNftManager redemptionPoolAddress :", address(NftManager(payable(address(proxyNftManager))).redemptionPoolAddress()));
-        console.log("deploy proxyNftManager redemptionPoolAddress :", NftManager(payable(address(proxyNftManager))).merchantValue());
-        console.log("deploy proxyNftManager redemptionPoolAddress :", NftManager(payable(address(proxyNftManager))).userValue());
+        console.log(
+            "deploy proxyNftManager fccTokenAddr :",
+            address(NftManager(payable(address(proxyNftManager))).fccTokenAddr())
+        );
+        console.log(
+            "deploy proxyNftManager tokenUsdtAddr :",
+            address(NftManager(payable(address(proxyNftManager))).tokenUsdtAddr())
+        );
+        console.log(
+            "deploy proxyNftManager redemptionPoolAddress :",
+            address(NftManager(payable(address(proxyNftManager))).redemptionPoolAddress())
+        );
+        console.log(
+            "deploy proxyNftManager redemptionPoolAddress :",
+            NftManager(payable(address(proxyNftManager))).merchantValue()
+        );
+        console.log(
+            "deploy proxyNftManager redemptionPoolAddress :", NftManager(payable(address(proxyNftManager))).userValue()
+        );
 
         fishcakeEventManager = new FishcakeEventManager();
         proxyFishcakeEventManager = Upgrades.deployTransparentProxy(
             "FishcakeEventManager.sol:FishcakeEventManager",
             deployerAddress,
-            abi.encodeWithSelector(FishcakeEventManager.initialize.selector, deployerAddress, proxyFishCakeCoin, usdtTokenAddress, proxyNftManager)
+            abi.encodeWithSelector(
+                FishcakeEventManager.initialize.selector,
+                deployerAddress,
+                proxyFishCakeCoin,
+                usdtTokenAddress,
+                proxyNftManager
+            )
         );
         console.log("deploy fishcakeEventManager:", address(fishcakeEventManager));
         console.log("deploy proxyFishcakeEventManager:", address(proxyFishcakeEventManager));
         console.log("deploy proxyFishcakeEventManager:", address(proxyFishcakeEventManager));
-        console.log("deploy proxyFishcakeEventManager isMint :", FishcakeEventManager(address(proxyFishcakeEventManager)).isMint());
-        console.log("deploy proxyFishcakeEventManager minePercent :", FishcakeEventManager(address(proxyFishcakeEventManager)).minePercent());
-        console.log("deploy proxyFishcakeEventManager minedAmt :", FishcakeEventManager(address(proxyFishcakeEventManager)).minedAmt());
-        console.log("deploy proxyFishcakeEventManager iNFTManager :", address(FishcakeEventManager(address(proxyFishcakeEventManager)).iNFTManager()));
+        console.log(
+            "deploy proxyFishcakeEventManager isMint :",
+            FishcakeEventManager(address(proxyFishcakeEventManager)).isMint()
+        );
+        console.log(
+            "deploy proxyFishcakeEventManager minePercent :",
+            FishcakeEventManager(address(proxyFishcakeEventManager)).minePercent()
+        );
+        console.log(
+            "deploy proxyFishcakeEventManager minedAmt :",
+            FishcakeEventManager(address(proxyFishcakeEventManager)).minedAmt()
+        );
+        console.log(
+            "deploy proxyFishcakeEventManager iNFTManager :",
+            address(FishcakeEventManager(address(proxyFishcakeEventManager)).iNFTManager())
+        );
 
         // setUp
         FishCakeCoin(address(proxyFishCakeCoin)).setRedemptionPool(address(redemptionPool));
@@ -121,6 +171,4 @@ contract FishcakeDeployerTest is Test {
 
         vm.stopBroadcast();
     }
-
-
 }
