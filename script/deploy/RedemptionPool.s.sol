@@ -8,8 +8,8 @@ contract RedemptionPoolScript is Script {
     RedemptionPool public redemptionPool;
 
     function run() public {
-        address _fishcakeCoin = vm.envAddress("HOLESKY_FISHCAKE_COIN");
-        address _usdtToken = vm.envAddress("HOLESKY_USDT_TOKEN");
+        address _fishcakeCoin = vm.envAddress("FISHCAKE_COIN");
+        address _usdtToken = vm.envAddress("USDT_ADDRESS");
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
         address deployerAddress = vm.addr(deployerPrivateKey);
         console.log("deployerAddress", deployerAddress);

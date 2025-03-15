@@ -12,8 +12,8 @@ contract NftManagerV3Script is Script {
     NftManagerV3 public nftManagerV3;
 
     function run() public {
-        address _fccTokenAddr = vm.envAddress("HOLESKY_FISHCAKE_COIN");
-        address _tokenUsdtAddr = vm.envAddress("HOLESKY_USDT_TOKEN");
+        address _fccTokenAddr = vm.envAddress("FISHCAKE_COIN");
+        address _tokenUsdtAddr = vm.envAddress("USDT_ADDRESS");
         address _redemptionPoolAddress = vm.envAddress("REDEMPTION_POOL_ADDR");
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
         address deployerAddress = vm.addr(deployerPrivateKey);

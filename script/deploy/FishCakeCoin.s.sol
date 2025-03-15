@@ -22,6 +22,8 @@ contract FishCakeCoinScript is Script {
 
         fishCakeCoin = new FishCakeCoin();
 
+        console.log("FishCakeCoin deployed at:", address(fishCakeCoin));
+
         TransparentUpgradeableProxy proxyFishCakeCoin = new TransparentUpgradeableProxy(
             address(fishCakeCoin),
             address(fishCakeCoinProxyAdmin),
